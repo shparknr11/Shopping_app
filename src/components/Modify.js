@@ -8,7 +8,6 @@ import {
 import useModal from "../hooks/useModal";
 import Modal from "./common/Modal";
 import Button from "./common/Button";
-import styled from "@emotion/styled";
 
 const initState = {
   id: "",

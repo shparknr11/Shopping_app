@@ -12,24 +12,27 @@ const Create = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleNameChange = e => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log("상품이름", e.target.value);
     setName(e.target.value);
   };
-  const handlePriceChange = e => {
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log("상품가격", e.target.value);
     setPrice(Number(e.target.value));
   };
-  const handleExplanationChange = e => {
+  const handleExplanationChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     // console.log("상품설명", e.target.value);
     setExplanation(e.target.value);
   };
 
-  const handleCreateProduct = async e => {
+  const handleCreateProduct = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     const response = await createProduct({ name, price, explanation });
+
     if (response) {
       setIsLoading(false);
       setIsModalOpen(true);
@@ -37,22 +40,20 @@ const Create = () => {
   };
 
   const handleMoveListPage = () => {
-    // console.log("상품목록페이지로 이동");
     setIsModalOpen(false);
-    navigate(`/product`);
+    navigate("/product");
   };
 
   if (isLoading) {
-    return <h3>상품을 등록하는 중 입니다...</h3>;
+    return <h3>상품을 등록 하는중입니다...</h3>;
   }
+
   if (isModalOpen) {
     return (
       <div>
         <div>상품을 성공적으로 추가하였습니다.</div>
         <div>확인을 누르면 상품 목록 페이지로 이동합니다.</div>
-        <button type="button" onClick={handleMoveListPage}>
-          확인
-        </button>
+        <Button label="확인" onClick={handleMoveListPage} />
       </div>
     );
   }
@@ -77,13 +78,11 @@ const Create = () => {
         <br />
         <textarea
           rows={4}
-          type="text"
           placeholder="상품 설명"
           value={explanation}
           onChange={handleExplanationChange}
         />
         <br />
-        {/* <input type="submit" value="상품 정보 등록하기" /> */}
         <Button label="상품 정보 등록하기" />
       </form>
     </div>

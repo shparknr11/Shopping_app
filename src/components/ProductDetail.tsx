@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { getProductList } from "../api/productListApi";
 import { useNavigate } from "react-router-dom";
-import Button from "./common/Button";
+import { ProductType } from "../types/product";
 
 const ProductList = () => {
   const navigate = useNavigate();
 
-  const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState<ProductType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
