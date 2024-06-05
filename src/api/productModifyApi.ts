@@ -1,7 +1,8 @@
 import axios from "axios";
 import { API_HOST } from "./config";
+import { ProductType } from "../types";
 
-export const getProductOne = async id => {
+export const getProductOne = async (id: string) => {
   try {
     const response = await axios.get(`${API_HOST}/${id}`);
     return response;
@@ -10,7 +11,7 @@ export const getProductOne = async id => {
   }
 };
 
-export const modifyProduct = async updateProduct => {
+export const modifyProduct = async (updateProduct: ProductType) => {
   try {
     const response = await axios.patch(
       `${API_HOST}/${updateProduct.id}`,
@@ -22,7 +23,7 @@ export const modifyProduct = async updateProduct => {
   }
 };
 
-export const deleteProduct = async id => {
+export const deleteProduct = async (id: string) => {
   try {
     const response = await axios.delete(`${API_HOST}/${id}`);
     return response;

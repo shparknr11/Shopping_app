@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getProductList } from "../api/productListApi";
 import { useNavigate } from "react-router-dom";
-import { ProductType } from "../types/product";
+import { ProductType } from "../types";
 
 const ProductList = () => {
   const navigate = useNavigate();

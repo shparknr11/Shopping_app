@@ -15,8 +15,7 @@ const CartList = () => {
     0,
   );
 
-  const handlePurchase = e => {
-    e.preventDefault();
+  const handlePurchase = () => {
     openModal({
       message: "성공적으로 구매하였습니다.",
       onConfirm: () => {
@@ -67,7 +66,8 @@ const CartList = () => {
         isOpen={isModalOpen}
         message={modalMessage}
         onClose={closeModal}
-        onConfirm={confirmAction}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onConfirm={confirmAction || (() => {})}
       />
     </div>
   );

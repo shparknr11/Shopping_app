@@ -51,7 +51,8 @@ const Purchase = () => {
         isOpen={isModalOpen}
         message={modalMessage}
         onClose={closeModal}
-        onConfirm={confirmAction}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onConfirm={confirmAction || (() => {})}
       />
     </div>
   );

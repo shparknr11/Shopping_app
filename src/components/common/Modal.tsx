@@ -1,4 +1,11 @@
-const Modal = ({ isOpen, message, onClose, onConfirm }) => {
+interface Props {
+  isOpen: boolean;
+  message: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}
+
+const Modal = ({ isOpen, message, onClose, onConfirm }: Props) => {
   if (!isOpen) return null;
 
   return (

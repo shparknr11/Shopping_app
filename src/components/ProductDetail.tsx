@@ -5,7 +5,7 @@ import useCart from "../hooks/useCart";
 import useModal from "../hooks/useModal";
 import Modal from "./common/Modal";
 import Button from "./common/Button";
-import { ProductType } from "../types/product";
+import { ProductType } from "../types";
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -80,7 +80,8 @@ const ProductDetail = () => {
         isOpen={isModalOpen}
         message={modalMessage}
         onClose={closeModal}
-        onConfirm={confirmAction}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onConfirm={confirmAction || (() => {})}
       />
     </div>
   );

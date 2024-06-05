@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_HOST } from "./config";
 
-export const getProductOne = async id => {
+export const getProductOne = async (id: string) => {
   try {
     const response = await axios.get(`${API_HOST}/${id}`);
     return response;

@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useCookies } from "react-cookie";
 import { getProductOne } from "../api/productItemApi";
+import { ProductType } from "../types";
+
+type CartType = ProductType & { count: number };
 
 // 쿠키는 기본적으로 키와 값의 형태로 저장이 된다.
 // COOKIE_KEY 라는 상수를 만들어서 cart라는 쿠키값의 키를 지정
@@ -8,13 +11,16 @@ const COOKIE_KEY = "cart";
 
 const useCart = () => {
   const [cookies, setCookies] = useCookies([COOKIE_KEY]);
-  const [carts, setCarts] = useState([]);
+  const [carts, setCarts] = useState<CartType[]>([]);
 
   // productIds 변수는 cookie로 부터 가져온 id들의 정보를 저장해놓는 공간
-  const productIds = useMemo(() => cookies[COOKIE_KEY] ?? [], [cookies]);
+  const productIds = useMemo(
+    () => (cookies[COOKIE_KEY] as string[]) ?? [],
+    [cookies],
+  );
 
   // 상품 정보 자체를 받는 것이 아니라 id를 넘겨받아서 저장
-  const addCarts = id => {
+  const addCarts = (id: string) => {
     const nextCartIds = [...productIds, id];
 
     setCookies(COOKIE_KEY, nextCartIds, { path: "/" });
@@ -32,16 +38,16 @@ const useCart = () => {
       // 요청할 함수들을 잠시 저장해놓는 변수
       const requestIds = productIds.reduce(
         (acc, cur) => acc.set(cur, (acc.get(cur) || 0) + 1),
-        new Map(),
+        new Map<string, number>(),
       );
 
       const fetchData = async () => {
-        const newCartData = [];
-        for (let id of requestIds.keys()) {
+        const newCartData: CartType[] = [];
+        for (const id of requestIds.keys()) {
           const response = await getProductOne(id);
           newCartData.push({
-            ...response.data.product,
-            count: requestIds.get(response.data.product.id),
+            ...response?.data.product,
+            count: requestIds.get(response?.data.product.id),
           });
         }
 
@@ -68,7 +74,7 @@ const useCart = () => {
     }
   }, [productIds]);
 
-  const changeCount = (productId, mode) => {
+  const changeCount = (productId: string, mode: "increase" | "decrease") => {
     const index = productIds.indexOf(productId);
 
     if (index === -1) {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../api/productCreateApi";
 import Button from "./common/Button";
+import { ProductType } from "../types";
 
 const Create = () => {
   const navigate = useNavigate();
